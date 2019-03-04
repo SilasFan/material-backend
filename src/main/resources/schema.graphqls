@@ -1,0 +1,94 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Mutation{
+    addUser(user: UserInput!): Boolean
+    updateUser(user: UserInput!): Boolean
+    deleteUser(user: String!): Boolean
+    addGood(good: GoodInput!): Good
+    updateGood(good: goodUpdate!): Boolean
+    deleteGood(id: Int!): Boolean
+    createRecord(record: CreateRecord!): String!
+    returnRecord(record: recordReturn!): Boolean
+}
+
+type Query {
+    login(id: String!,passwd:String!): Boolean!
+    allUser: [User]
+    allRecord: [Record]
+    recordByID(id: String): Record!
+    allGoods: [Good]
+    goodByID(id: Int): Good!
+    toReturn: Int!
+}
+
+type User{
+    id: String!
+    passwd: String!
+}
+
+type Good{
+    id: String!
+    name: String!
+    amount: Int!
+    borrow: Int!
+    brokenDes: [String]
+}
+
+type Person{
+    name: String!
+    group: String!
+    phone: String!
+    studentNumber: String
+}
+
+type Record{
+    id: String!
+    res_person: Person!
+    items: [Good!]!
+    isReturn: Boolean!
+    note: String
+    date: String!
+}
+
+input UserInput{
+    id: String!
+    passwd: String!
+}
+
+input GoodInput{
+    name: String!
+    amount: Int!
+}
+
+input goodUpdate{
+    id: Int!
+    name: String!
+    amount: Int!
+    borrow: Int!
+}
+
+input personInput{
+    name: String!
+    group: String!
+    phone: String!
+    studentNumber: String
+}
+
+input itemsInput{
+    id: Int!
+    borrow: Int!
+    brokenDes: [String!]
+}
+
+input CreateRecord{
+    res_person: personInput!
+    items: [itemsInput!]!
+}
+
+input recordReturn{
+    id: String!
+    note:String!
+}
