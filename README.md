@@ -3,7 +3,9 @@
 
 一些配置：
 graphql endpoint: localhost:4000/graphql
+
 graphiql endpoint: localhost:4000/
+
 spring.data.mongodb.uri=mongodb://localhost:27017/test1
 
 emm自行在 application.properties修改
