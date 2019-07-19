@@ -15,7 +15,7 @@ type Mutation{
 }
 
 type Query {
-    login(id: String!,passwd:String!): Boolean!
+    login(id: String!,passwd: String!): LoginMsg
     allUser: [User]
     allRecord: [Record]
     recordByID(id: String): Record!
@@ -25,32 +25,42 @@ type Query {
 }
 
 type User{
-    id: String!
-    passwd: String!
+    id: String
+    passwd: String
+    error: String
 }
 
 type Good{
-    id: String!
-    name: String!
-    amount: Int!
-    borrow: Int!
+    id: String
+    name: String
+    amount: Int
+    borrow: Int
     brokenDes: [String]
+    error: String
 }
 
 type Person{
-    name: String!
-    group: String!
-    phone: String!
+    name: String
+    group: String
+    phone: String
     studentNumber: String
+    error: String
 }
 
 type Record{
-    id: String!
-    res_person: Person!
-    items: [Good!]!
-    isReturn: Boolean!
+    id: String
+    res_person: Person
+    items: [Good!]
+    isReturn: Boolean
     note: String
-    date: String!
+    date: String
+    error: String
+}
+
+type LoginMsg{
+    token: String
+    error: String
+    error: String
 }
 
 input UserInput{

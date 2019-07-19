@@ -6,6 +6,20 @@ public class Person {
     private String phone;
     private String group;
     private String studentNumber;
+    private String error;
+
+
+    public Person(String error) {
+        this.error = error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return error;
+    }
 
     public Person(String name, String phone, String group, String studentNumber) {
         this.name = name;

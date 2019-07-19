@@ -1,10 +1,12 @@
 package com.material.mutation;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.material.service.SecurityService;
 import com.material.types.Good;
 import com.material.types.Record;
 import graphql.GraphQLException;
 import graphql.schema.DataFetchingEnvironment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -20,7 +22,13 @@ public class recordMutation implements GraphQLMutationResolver {
     @Resource
     private MongoTemplate mongoTemplate;
 
+    @Autowired
+    private SecurityService securityService;
+
     public String createRecord(Record record, DataFetchingEnvironment environment) {
+        if(securityService.ifLogin() == false){
+            return "未登录";
+        }
 
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
@@ -52,6 +60,9 @@ public class recordMutation implements GraphQLMutationResolver {
     }
 
     public Boolean returnRecord(Record record) {
+        if(securityService.ifLogin() == false){
+            return false;
+        }
         Query query = new Query(Criteria.where("id").is(record.getId()));
         Record real = mongoTemplate.findOne(query, Record.class);
         if (real == null || real.getReturn()) {

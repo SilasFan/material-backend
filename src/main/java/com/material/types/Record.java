@@ -16,6 +16,22 @@ public class Record {
     private String note;
     private String date;
 
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public Record(String error) {
+        this.error = error;
+    }
+
+    private String error;
+
+
+
     @PersistenceConstructor
     public Record(String id, Person res_person, List<Good> items, Boolean isReturn, String note, String date) {
         this.id = id;

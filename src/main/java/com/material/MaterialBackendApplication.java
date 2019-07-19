@@ -1,7 +1,9 @@
 package com.material;
 
+import com.material.jwt.JwtUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 @SpringBootApplication
 @EnableWebSocket
 @Configuration
+@EnableConfigurationProperties
 public class MaterialBackendApplication {
 
     public static void main(String[] args) {
@@ -27,5 +30,7 @@ public class MaterialBackendApplication {
             registry.addMapping("/**").allowedOrigins("*");
         }
     }
+
+
 
 }

@@ -1,7 +1,9 @@
 package com.material.mutation;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.material.service.SecurityService;
 import com.material.types.Good;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -9,14 +11,21 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Component
 public class goodMutation implements GraphQLMutationResolver {
     @Resource
     private MongoTemplate mongoTemplate;
+    @Autowired
+    private SecurityService securityService;
 
     public Good addGood(Good good){
+        if(securityService.ifLogin() == false){
+            return new Good("未登录");
+        }
         Query query = new Query(Criteria.where("id").exists(true));
         query.with(new Sort(Sort.Direction.DESC,"id"));
         query.limit(1);
@@ -29,6 +38,9 @@ public class goodMutation implements GraphQLMutationResolver {
     }
 
     public Boolean updateGood(Good good){
+        if(securityService.ifLogin() == false){
+            return false;
+        }
         Query query = new Query(Criteria.where("id").is(good.getId()));
         Good qGood = mongoTemplate.findOne(query,Good.class);
 
@@ -46,6 +58,9 @@ public class goodMutation implements GraphQLMutationResolver {
     }
 
     public Boolean deleteGood(Integer id){
+        if(securityService.ifLogin() == false){
+            return false;
+        }
         Query query = new Query(Criteria.where("id").is(id));
         Good good = mongoTemplate.findOne(query,Good.class);
         if(good==null){

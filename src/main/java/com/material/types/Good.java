@@ -12,6 +12,19 @@ public class Good {
     private Integer amount;
     private Integer borrow;
     private List<String> brokenDes;
+    private String error;
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public Good(String error) {
+        this.error = error;
+    }
 
     @PersistenceConstructor
     public Good( Integer id,String name, Integer amount, Integer borrow, List<String> brokenDes) {
@@ -33,6 +46,8 @@ public class Good {
         this.name = name;
         this.amount = amount;
     }
+
+
 
     public Good(Integer id, Integer borrow) {
         this.id = id;

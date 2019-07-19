@@ -9,6 +9,19 @@ public class User {
     @Id
     private String id;
     private String passwd;
+    private String error;
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public User(String error) {
+        this.error = error;
+    }
 
     @PersistenceConstructor
     public User(String id, String passwd) {
